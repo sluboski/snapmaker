@@ -20,119 +20,92 @@ with open(nazwa_pliku, "w") as plik_gcode:
     for i in range(1,13):
         # Opuszczenie głowicy
         komenda = f'G1 Z{dolne_z} f500\n'
-        ser.write(komenda.encode())  # Opuść głowicę
-        time.sleep(0.2)
-        print(f"Głowica opuszczona")
-        plik_gcode.write(komenda)  # Zapisz komendę G-code do pliku
+        ser.write(komenda.encode())
+        plik_gcode.write(komenda)   # Zapisz komendę G-code do pliku
 
         # Podniesienie głowicy
-        
         komenda = f'G1 Z{start_z} f500\n'
-        ser.write(komenda.encode())  # Podnieś głowicę
-        time.sleep(0.2)
-        print(f"Głowica podniesiona")
-        plik_gcode.write(komenda)  # Zapisz komendę G-code do pliku
+        ser.write(komenda.encode())
+        plik_gcode.write(komenda)
 
         # Przesunięcie głowicy do przodu z coraz większym X
         target_x = start_x + i * 9
-        
         komenda = f'G0 X{target_x} Y{start_y} Z{start_z} f1000\n'
         ser.write(komenda.encode())
-        time.sleep(0)
-        print(f"Głowica przesunięta do X={target_x}")
-        plik_gcode.write(komenda)  # Zapisz komendę G-code do pliku
+        plik_gcode.write(komenda)
 
         # Opuszczenie głowicy
         komenda = f'G1 Z{dolne_z} f500\n'
-        ser.write(komenda.encode())  # Opuść głowicę
-        time.sleep(0.2)
-        print(f"Głowica opuszczona")
-        plik_gcode.write(komenda)  # Zapisz komendę G-code do pliku
+        ser.write(komenda.encode())
+        plik_gcode.write(komenda)
 
         # Podniesienie głowicy
         komenda = f'G1 Z{start_z} f500\n'
-        ser.write(komenda.encode())  # Podnieś głowicę
-        time.sleep(0.2)
-        print(f"Głowica podniesiona")
-        plik_gcode.write(komenda)  # Zapisz komendę G-code do pliku
+        ser.write(komenda.encode())
+        plik_gcode.write(komenda)
 
         # Wróć na miejsce początkowe
         komenda = f'G0 X{start_x} Y{start_y} Z{start_z} f1000\n'
         ser.write(komenda.encode())
-        time.sleep(0)
-        print(f"Głowica wróciła na pozycję początkową")
-        plik_gcode.write(komenda)  # Zapisz komendę G-code do plik
-        
+        plik_gcode.write(komenda)
 
     # Proces mycia
     # Opuszczenie głowicy
     komenda = f'G1 Z{dolne_z} f500\n'
-    ser.write(komenda.encode())  # Opuść głowicę
-    time.sleep(0.2)
-    print(f"Głowica opuszczona")
-    plik_gcode.write(komenda)  # Zapisz komendę G-code do pliku
+    ser.write(komenda.encode())
+    plik_gcode.write(komenda)
 
     # Podniesienie głowicy
     komenda = f'G1 Z{start_z} f500\n'
-    ser.write(komenda.encode())  # Podnieś głowicę
-    time.sleep(0.2)
-    print(f"Głowica podniesiona")
-    plik_gcode.write(komenda)  # Zapisz komendę G-code do pliku
+    ser.write(komenda.encode())
+    plik_gcode.write(komenda)
 
     # Przesunięcie głowicy do czystej wody
     cleaning_x = 150
     komenda = f'G0 X{cleaning_x} Y{start_y} Z{start_z} f1000\n'
     ser.write(komenda.encode())
-    time.sleep(0)
-    print(f"Głowica przesunięta do X={cleaning_x}")
-    plik_gcode.write(komenda)  # Zapisz komendę G-code do pliku
-
+    plik_gcode.write(komenda)
 
     # 2 krotne opuszczenie i podniesienie w wodzie
     for i in range (2):
         # Opuszczenie głowicy
         komenda = f'G1 Z{dolne_z} f500\n'
-        ser.write(komenda.encode())  # Opuść głowicę
-        time.sleep(0.5)
-        print(f"Głowica opuszczona")
-        plik_gcode.write(komenda)  # Zapisz komendę G-code do pliku
+        ser.write(komenda.encode())
+        time.sleep(0.7)
+        plik_gcode.write(komenda)
 
         # Podniesienie głowicy
         komenda = f'G1 Z{start_z} f500\n'
-        ser.write(komenda.encode())  # Podnieś głowicę
-        time.sleep(0.5)
-        print(f"Głowica podniesiona")
-        plik_gcode.write(komenda)  # Zapisz komendę G-code do pliku
+        ser.write(komenda.encode())
+        plik_gcode.write(komenda)
 
+    # Opuszczenie głowicy
+    komenda = f'G1 Z{dolne_z} f500\n'
+    ser.write(komenda.encode())
+    time.sleep(0.7)
+    plik_gcode.write(komenda)
+        
     # Szybkie ruchy lewo-prawo
-    for i in range(3):  # Wykonaj ruch lewo-prawo trzy razy
+    for i in range(3):
         # Ruch w lewo
         komenda_lewo = f'G0 X{start_x} Y{start_y - 2} Z{start_z} f500\n'
         ser.write(komenda_lewo.encode())
-        time.sleep(0)
-        print(f"Głowica przeunięta o -2 Y")
-        plik_gcode.write(komenda_lewo)  # Zapisz komendę G-code do pliku
+        plik_gcode.write(komenda_lewo)
 
         # Ruch w prawo
         komenda_prawo = f'G0 X{start_x} Y{start_y + 2} Z{start_z} f500\n'
         ser.write(komenda_prawo.encode())
-        time.sleep(0)
-        print(f"Głowica przeunięta o +2 Y")
-        plik_gcode.write(komenda_prawo)  # Zapisz komendę G-code do pliku
+        plik_gcode.write(komenda_prawo)
 
     # Podniesienie głowicy
     komenda = f'G1 Z{start_z} f500\n'
-    ser.write(komenda.encode())  # Podnieś głowicę
-    time.sleep(0.2)
-    print(f"Głowica podniesiona")
-    plik_gcode.write(komenda)  # Zapisz komendę G-code do pliku
+    ser.write(komenda.encode())
+    plik_gcode.write(komenda)
 
     # Wróć na miejsce początkowe
     komenda = f'G0 X{start_x} Y{start_y} Z{start_z} f1000\n'
     ser.write(komenda.encode())
-    time.sleep(0)
-    print(f"Głowica wróciła na pozycję początkową")
-    plik_gcode.write(komenda)  # Zapisz komendę G-code do pliku
+    plik_gcode.write(komenda)
 
 # Zakończenie połączenia
 ser.close()
