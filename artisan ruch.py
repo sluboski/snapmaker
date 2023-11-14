@@ -19,7 +19,7 @@ with open(nazwa_pliku, "w") as plik_gcode:
     # Powtarzaj 12 razy
     for i in range(1,13):
         # Opuszczenie głowicy
-        komenda = f'G1 Z{dolne_z} f500\n'
+        komenda = f'G1 Z{dolne_z} f500 (new loop)\n'
         ser.write(komenda.encode())
         plik_gcode.write(komenda)   # Zapisz komendę G-code do pliku
 
@@ -51,7 +51,7 @@ with open(nazwa_pliku, "w") as plik_gcode:
 
     # Proces mycia
     # Opuszczenie głowicy
-    komenda = f'G1 Z{dolne_z} f500\n'
+    komenda = f'G1 Z{dolne_z} f500 (pins cleaning)\n'
     ser.write(komenda.encode())
     plik_gcode.write(komenda)
 
