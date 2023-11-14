@@ -87,18 +87,18 @@ with open(nazwa_pliku, "w") as plik_gcode:
         
     # Szybkie ruchy lewo-prawo
     for i in range(3):
-        # Ruch w lewo
-        komenda_lewo = f'G0 X{start_x} Y{start_y - 2} Z{start_z} f500\n'
+        # Ruch w lewox``
+        komenda_lewo = f'G0 X{start_x} Y{start_y - 2} Z{dolne_z} f500\n'
         ser.write(komenda_lewo.encode())
         plik_gcode.write(komenda_lewo)
 
         # Ruch w prawo
-        komenda_prawo = f'G0 X{start_x} Y{start_y + 2} Z{start_z} f500\n'
+        komenda_prawo = f'G0 X{start_x} Y{start_y + 2} Z{dolne_z} f500\n'
         ser.write(komenda_prawo.encode())
         plik_gcode.write(komenda_prawo)
 
     # Podniesienie głowicy
-    komenda = f'G1 Z{start_z} f500\n'
+    komenda = f'G0 Z{start_z} Y{start_y} f500\n'
     ser.write(komenda.encode())
     plik_gcode.write(komenda)
 
